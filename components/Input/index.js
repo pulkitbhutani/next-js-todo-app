@@ -5,6 +5,6 @@ export default function Input({ text,setText }) {
         <input type="text"
         value={text} 
         onChange={({target:{value}})=>setText(value)} 
-        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight w-2/5 m-3"/>
 );
 }

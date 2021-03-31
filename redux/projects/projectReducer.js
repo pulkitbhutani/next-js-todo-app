@@ -17,7 +17,8 @@ const projectReducer = (state = initialState, action) => {
     case FETCH_PROJECTS_FAILURE:
       return { loading: false, projects: [], error: action.payload };
     case ADD_PROJECT:
-      return [...state, { id: action.id, title: action.title }];
+        state.projects = [...state.projects, {id: action.id, title: action.title, userId : action.userId}]
+      return {...state};
     default:
       return state;
   }

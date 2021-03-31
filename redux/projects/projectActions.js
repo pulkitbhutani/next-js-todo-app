@@ -1,9 +1,10 @@
 import { FETCH_PROJECTS, ADD_PROJECT, FETCH_PROJECTS_REQUEST, FETCH_PROJECTS_FAILURE } from "./projectTypes";
 
-export const addProject = (id, title) => ({
+export const addProject = (id, title, userId) => ({
   type: ADD_PROJECT,
   id,
   title,
+  userId
 });
 
 export const fetchProjectsSuccess = (payload) => ({

@@ -2,25 +2,28 @@ import Input from "../Input";
 import Button from "../Button";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Card from "../Card";
+import ProjectItemCard from "../ProjectItemCard";
 import { fetchTasks } from "../../redux/task/taskActions";
+import { addProject } from "../../redux/projects/projectActions";
 
 const Project = () => {
   const projectData = useSelector((state) => state.projects);
-  console.log('projectdata -', projectData);
   const dispatch = useDispatch();
 
-  const loadTasks = (projectId) => {
-    console.log('project id recieved to loadTasks -', projectId)
-    dispatch(fetchTasks(projectId));
-  }
+  const loadTasks = (projectId, projectTitle) => {
+    console.log("project id recieved to loadTasks -", projectId);
+    dispatch(fetchTasks(projectId, projectTitle));
+  };
 
   useEffect(() => {
-    if(projectData.loading=== false){
-      console.log('project id recived on use effect - ',projectData.projects[0].id)
-      loadTasks(projectData.projects[0].id);
+    if (projectData.loading === false) {
+      console.log(
+        "project id recived on use effect - ",
+        projectData.projects[0].id
+      );
+      loadTasks(projectData.projects[0].id, projectData.projects[0].title);
     }
-  },[projectData.loading])
+  }, [projectData.loading]);
 
   console.log("data", projectData);
   const [projectName, setProjectName] = useState("");
@@ -31,7 +34,8 @@ const Project = () => {
       body: JSON.stringify({ title: value, userId: 1 }),
     })
       .then((data) => data.json())
-      .then((res) => props.dispatch(addProject(res.id, res.title)));
+      .then((res) => dispatch(addProject(res.id, res.title, 1)))
+      .then(setProjectName(""));
   };
 
   return projectData.loading ? (
@@ -39,18 +43,25 @@ const Project = () => {
   ) : projectData.error ? (
     <h2>{projectData.error}</h2>
   ) : (
-    <div>
+    <div className='container'>
       <div>
-        {projectData && projectData.projects && projectData.projects.map((project) => (
-          <Card title={project.title} onClick={()=> loadTasks(project.id)}/>
-        ))}
+        {projectData &&
+          projectData.projects &&
+          projectData.projects.map((project) => (
+            <ProjectItemCard
+              title={project.title}
+              onClick={() => loadTasks(project.id, project.title)}
+            />
+          ))}
       </div>
       <div>
         <Input text={projectName} setText={setProjectName} />
         <Button
           text={"Add Project"}
           onClick={() => {
-            onProjectSubmit(projectName);
+            if (projectName !== "") {
+              onProjectSubmit(projectName);
+            }
           }}
         />
       </div>

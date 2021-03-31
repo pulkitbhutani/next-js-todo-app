@@ -3,12 +3,15 @@ import {
   FETCH_TASK_SUCCESS,
   FETCH_TASK_FAILURE,
   ADD_TASK,
+  TOGGLE_TASK_COMPLETED,
 } from "./taskTypes";
 
-export const addTask = (id, title) => ({
+export const addTask = (id, title, completed, projectId) => ({
   type: ADD_TASK,
   id,
   title,
+  completed,
+  projectId,
 });
 
 export const fetchTaskRequest = (projectId) => ({
@@ -16,9 +19,15 @@ export const fetchTaskRequest = (projectId) => ({
   projectId,
 });
 
-export const fetchTaskSuccess = (payload) => ({
+export const fetchTaskSuccess = (
+  payload,
+  selectedProjectId,
+  selectedProjectTitle
+) => ({
   type: FETCH_TASK_SUCCESS,
   payload,
+  selectedProjectId,
+  selectedProjectTitle,
 });
 
 export const fetchTaskFailure = (err) => ({
@@ -26,14 +35,21 @@ export const fetchTaskFailure = (err) => ({
   err,
 });
 
-export const fetchTasks = (projectId) => {
-    console.log('fetch task project id - ', projectId);
+export const toggleTaskCompleted = (id) => ({
+  type: TOGGLE_TASK_COMPLETED,
+  id,
+});
+
+export const fetchTasks = (selectedProjectId, selectedProjectTitle) => {
+  console.log("fetch task project id - ", selectedProjectId);
   return (dispatch) => {
-    dispatch(fetchTaskRequest(projectId));
-    fetch(`http://localhost:3000/api/tasks/${projectId}`)
+    dispatch(fetchTaskRequest(selectedProjectId));
+    fetch(`http://localhost:3000/api/tasks/${selectedProjectId}`)
       .then((response) => response.json())
       .then((data) => {
-        dispatch(fetchTaskSuccess(data));
+        dispatch(
+          fetchTaskSuccess(data, selectedProjectId, selectedProjectTitle)
+        );
       })
       .catch((err) => {
         dispatch(fetchTaskFailure(err));
