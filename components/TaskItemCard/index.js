@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const TaskItemCard = ({ title, taskId, completed }) => {
   const dispatch = useDispatch();
-  console.log(completed);
 
   const handleCompleteChanged = () => {
     toggleTaskCompleted(taskId, completed).then((res) =>
@@ -28,9 +27,11 @@ const TaskItemCard = ({ title, taskId, completed }) => {
 
   return (
     <li>
-      <div className="bg-white rounded shadow-md h-12 m-3 flex flex-wrap content-end space-x-14">
-        <Checkbox isCompleted={completed} onChange={handleCompleteChanged} />
+      <div className="bg-white rounded shadow-md h-12 m-3 grid grid-cols-4 gap-4">
         <div>
+          <Checkbox isCompleted={completed} onChange={handleCompleteChanged} />
+        </div>
+        <div className="col-span-2">
           <p
             className={
               "font-bold m-3 inline-block align-middle " +

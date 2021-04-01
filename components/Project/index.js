@@ -51,6 +51,7 @@ const Project = () => {
           projectData.projects.map((project) => (
             <ProjectItemCard
               key = {project.id}
+              projectId = {project.id}
               title={project.title}
               onClick={() => loadTasks(project.id, project.title)}
             />

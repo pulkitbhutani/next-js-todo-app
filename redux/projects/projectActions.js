@@ -1,10 +1,15 @@
-import { FETCH_PROJECTS, ADD_PROJECT, FETCH_PROJECTS_REQUEST, FETCH_PROJECTS_FAILURE } from "./projectTypes";
+import { FETCH_PROJECTS, ADD_PROJECT, FETCH_PROJECTS_REQUEST, FETCH_PROJECTS_FAILURE, DELETE_PROJECT } from "./projectTypes";
 
 export const addProject = (id, title, userId) => ({
   type: ADD_PROJECT,
   id,
   title,
   userId
+});
+
+export const deleteProjectSuccess = (id) => ({
+  type: DELETE_PROJECT,
+  id,
 });
 
 export const fetchProjectsSuccess = (payload) => ({
@@ -33,4 +38,15 @@ export const fetchProjects = () => {
       });
   };
 }
+
+export const deleteProject = (projectId) => {
+  return fetch(`http://localhost:3000/api/projects/deleteProject/${projectId}`, {
+     method: "DELETE",
+   })
+     .then((data) => data.json())
+     .then((res) => {
+       console.log(res);
+       return res;
+     });
+ };
 
