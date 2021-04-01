@@ -1,7 +1,12 @@
-
-export default function Checkbox({ onChange }) {
-    return (
-        <input type="checkbox" onChange={onChange} className="form-checkbox bg-green-500"/>
-);
+export default function Checkbox({ isCompleted, onChange }) {
+  return (
+    <div>
+      <input
+        type="checkbox"
+        checked={isCompleted}
+        onChange={onChange}
+        className="form-checkbox h-4 w-4 m-4 bg-green-500"
+      />
+    </div>
+  );
 }
-

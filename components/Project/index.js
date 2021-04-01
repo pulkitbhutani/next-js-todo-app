@@ -44,16 +44,18 @@ const Project = () => {
     <h2>{projectData.error}</h2>
   ) : (
     <div className='container'>
-      <div>
+      <h2 className="text-5xl font-normal leading-normal mt-0 mb-2 text-green-500 m-3">My Projects</h2>
+      <ul>
         {projectData &&
           projectData.projects &&
           projectData.projects.map((project) => (
             <ProjectItemCard
+              key = {project.id}
               title={project.title}
               onClick={() => loadTasks(project.id, project.title)}
             />
           ))}
-      </div>
+      </ul>
       <div>
         <Input text={projectName} setText={setProjectName} />
         <Button
@@ -62,7 +64,9 @@ const Project = () => {
             if (projectName !== "") {
               onProjectSubmit(projectName);
             }
-          }}
+          }
+        }
+        deleteButton = {false}
         />
       </div>
     </div>

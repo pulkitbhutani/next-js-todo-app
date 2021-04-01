@@ -11,7 +11,7 @@ const store = createStore(rootReducer,applyMiddleware(thunk));
 
 export default function Home() {
   return (
-    <div className="bg-gray-300 h-screen">
+    <div className="bg-gray-300 h-full">
       <Provider store={store}>
         <Todo />
       </Provider>

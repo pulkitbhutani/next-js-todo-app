@@ -3,8 +3,10 @@ import {
   FETCH_TASK_SUCCESS,
   FETCH_TASK_FAILURE,
   ADD_TASK,
+  DELETE_TASK,
   TOGGLE_TASK_COMPLETED,
 } from "./taskTypes";
+
 
 export const addTask = (id, title, completed, projectId) => ({
   type: ADD_TASK,
@@ -13,6 +15,12 @@ export const addTask = (id, title, completed, projectId) => ({
   completed,
   projectId,
 });
+
+export const deleteTaskSuccess = (id) => ({
+  type: DELETE_TASK,
+  id,
+});
+
 
 export const fetchTaskRequest = (projectId) => ({
   type: FETCH_TASK_REQUEST,
@@ -35,7 +43,7 @@ export const fetchTaskFailure = (err) => ({
   err,
 });
 
-export const toggleTaskCompleted = (id) => ({
+export const toggleTaskCompletedSuccess = (id) => ({
   type: TOGGLE_TASK_COMPLETED,
   id,
 });
@@ -56,3 +64,27 @@ export const fetchTasks = (selectedProjectId, selectedProjectTitle) => {
       });
   };
 };
+
+export const toggleTaskCompleted = (taskId, completed) => {
+   return fetch(`http://localhost:3000/api/tasks/updateTask/${taskId}`, {
+      method: "POST",
+      body: JSON.stringify({
+        completed: !completed,
+      }),
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        return res;
+      });
+  };
+
+  export const deleteTask = (taskId) => {
+    return fetch(`http://localhost:3000/api/tasks/deleteTask/${taskId}`, {
+       method: "DELETE",
+     })
+       .then((data) => data.json())
+       .then((res) => {
+         console.log(res);
+         return res;
+       });
+   };

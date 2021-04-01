@@ -5,7 +5,6 @@ import { PrismaClient } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "../../redux/task/taskActions";
-import {toggleTaskCompleted} from "../../redux/task/taskActions";
 
 export default function Task() {
   const taskData = useSelector((state) => state.tasks);
@@ -29,17 +28,13 @@ export default function Task() {
       .then(setTaskName(""));
   };
 
-  const handleCompleteChanged = () => {
-    dispatch({type: 'TOGGLE_TASK_COMPLETED', id: taskId});
-  }
-
   return (
     <div>
-      <h2>{taskData.selectedProjectTitle}</h2>
+      <h2 className="text-5xl font-normal leading-normal mt-0 mb-2 text-green-500 m-3">{taskData.selectedProjectTitle}</h2>
       <ul>
         {taskData &&
           taskData.tasks &&
-          taskData.tasks.map((task) => <TaskItemCard title={task.title}/>)}
+          taskData.tasks.map((task) => <TaskItemCard key={task.id} title = {task.title} taskId ={task.id} completed ={task.completed} />)}
       </ul>
       <div className='w-full block'>
         <Input text={taskName} setText={setTaskName} />
