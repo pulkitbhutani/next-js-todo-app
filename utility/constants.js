@@ -1,1 +1,1 @@
-export const API_LINK = 'http://localhost:3000/api';
+export const API_LINK = 'https://next-js-todo-app-git-main-pulkitbhutani.vercel.app/api';
