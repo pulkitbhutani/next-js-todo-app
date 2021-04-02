@@ -1,9 +1,6 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import thunk from 'redux-thunk';
-import Todo from "./Todo/index";
+import Todo from "../components/Todo";
 import { Provider } from "react-redux";
-import { useEffect, useState } from "react";
 import { applyMiddleware, createStore } from 'redux';
 import rootReducer from '../redux/rootReducer'
 

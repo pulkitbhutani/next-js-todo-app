@@ -1,6 +1,6 @@
-import Project from "../../components/Project";
-import Task from "../../components/Task";
-import Navbar from "../../components/Navbar";
+import Project from "../Project";
+import Task from "../Task";
+import Navbar from "../Navbar";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProjects } from "../../redux/projects/projectActions";
