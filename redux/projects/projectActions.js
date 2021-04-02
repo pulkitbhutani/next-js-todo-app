@@ -1,4 +1,5 @@
 import { FETCH_PROJECTS, ADD_PROJECT, FETCH_PROJECTS_REQUEST, FETCH_PROJECTS_FAILURE, DELETE_PROJECT } from "./projectTypes";
+import {API_LINK} from "../../utility/constants"
 
 export const addProject = (id, title, userId) => ({
   type: ADD_PROJECT,
@@ -29,7 +30,7 @@ export const fetchProjectFailure = (err) => ({
 export const fetchProjects = () => { 
   return (dispatch) => {
   dispatch(fetchProjectRequest());
-  fetch("http://localhost:3000/api/projects")
+  fetch( `${API_LINK}/projects`)
       .then(response => response.json())
       .then((data) => {
         dispatch(fetchProjectsSuccess(data));
@@ -40,7 +41,7 @@ export const fetchProjects = () => {
 }
 
 export const deleteProject = (projectId) => {
-  return fetch(`http://localhost:3000/api/projects/deleteProject/${projectId}`, {
+  return fetch(`${API_LINK}/projects/deleteProject/${projectId}`, {
      method: "DELETE",
    })
      .then((data) => data.json())

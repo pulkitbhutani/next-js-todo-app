@@ -6,6 +6,7 @@ import {
   DELETE_TASK,
   TOGGLE_TASK_COMPLETED,
 } from "./taskTypes";
+import {API_LINK} from "../../utility/constants"
 
 
 export const addTask = (id, title, completed, projectId) => ({
@@ -52,7 +53,7 @@ export const fetchTasks = (selectedProjectId, selectedProjectTitle) => {
   console.log("fetch task project id - ", selectedProjectId);
   return (dispatch) => {
     dispatch(fetchTaskRequest(selectedProjectId));
-    fetch(`http://localhost:3000/api/tasks/${selectedProjectId}`)
+    fetch(`${API_LINK}/tasks/${selectedProjectId}`)
       .then((response) => response.json())
       .then((data) => {
         dispatch(
@@ -66,7 +67,7 @@ export const fetchTasks = (selectedProjectId, selectedProjectTitle) => {
 };
 
 export const toggleTaskCompleted = (taskId, completed) => {
-   return fetch(`http://localhost:3000/api/tasks/updateTask/${taskId}`, {
+   return fetch(`${API_LINK}/tasks/updateTask/${taskId}`, {
       method: "POST",
       body: JSON.stringify({
         completed: !completed,
@@ -79,7 +80,7 @@ export const toggleTaskCompleted = (taskId, completed) => {
   };
 
   export const deleteTask = (taskId) => {
-    return fetch(`http://localhost:3000/api/tasks/deleteTask/${taskId}`, {
+    return fetch(`${API_LINK}/tasks/deleteTask/${taskId}`, {
        method: "DELETE",
      })
        .then((data) => data.json())

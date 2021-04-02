@@ -1,32 +1,11 @@
 import Input from "../Input";
 import Button from "../Button";
 import TaskItemCard from "../TaskItemCard";
-import { PrismaClient } from "@prisma/client";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addTask } from "../../redux/task/taskActions";
+import useTasks from "../../hooks/useTasks";
 
 export default function Task() {
-  const taskData = useSelector((state) => state.tasks);
-  
-  const dispatch = useDispatch();
-  const [taskName, setTaskName] = useState("");
 
-  const onTaskSubmit = (value) => {
-    fetch("http://localhost:3000/api/addTask", {
-      method: "POST",
-      body: JSON.stringify({
-        title: value,
-        completed: false,
-        projectId: taskData.selectedProjectId,
-      }),
-    })
-      .then((data) => data.json())
-      .then((res) => {
-        dispatch(addTask(res.id, res.title, res.completed, res.projectId));
-      })
-      .then(setTaskName(""));
-  };
+  const {taskName, setTaskName, taskData, onTaskSubmit} = useTasks();
 
   return (
     <div>
