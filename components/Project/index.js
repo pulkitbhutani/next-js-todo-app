@@ -1,5 +1,6 @@
 import Input from "../Input";
 import Button from "../Button";
+import Loader from "../Loader";
 import ProjectItemCard from "../ProjectItemCard";
 import useProjects from "../../hooks/useProjects";
 const Project = () => {
@@ -7,7 +8,7 @@ const Project = () => {
   const { projectName,setProjectName, projectData, onProjectSubmit, loadTasks} = useProjects();
 
   return projectData.loading ? (
-    <h2>Loading</h2>
+    <Loader/>
   ) : projectData.error ? (
     <h2>{projectData.error}</h2>
   ) : (
